@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Encrypt/Decrypt</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  color: #fff;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="button"] {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+}
+
+input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #333;
+  color: #fff;
+}
+
+input[type="button"] {
+  width: 50%;
+  cursor: pointer;
+  background-color: #444;
+  color: #fff;
+}
+
+#result {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #555;
+}
+
+footer {
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  color: #888;
+}
+
+@media screen and (min-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  input[type="button"] {
+    width: 30%;
+  }
+}
+
+  </style>
+  <script>
+    function encryptDecrypt() {
+      var input = document.getElementById('input').value;
+      var output = document.getElementById('result');
+      var button = document.getElementById('action');
+      
+      if (button.value === 'Encriptar') {
+        output.innerHTML = 'Mensagem Encriptada: ' + encrypt(input);
+      }
+    }
+    
+    function encrypt(message) {
+      var encrypted = '';
+      for (var i = 0; i < message.length; i++) {
+        var charCode = message.charCodeAt(i);
+        encrypted += charCode + ' ';
+      }
+      return encrypted.trim();
+    }
+    
+    function decrypt(ciphertext) {
+      var decrypted = '';
+      var codes = ciphertext.split(' ');
+      for (var i = 0; i < codes.length; i++) {
+        var charCode = parseInt(codes[i]);
+        decrypted += String.fromCharCode(charCode);
+      }
+      return decrypted;
+    }
+    
+    function convertDecimalToText() {
+      var input = document.getElementById('input').value;
+      var output = document.getElementById('result');
+      
+      var convertedText = decimalToText(input);
+      if (convertedText !== null) {
+        output.innerHTML = 'Mensagem Descriptada: ' + convertedText;
+      } else {
+        output.innerHTML = 'Valor invalido ou já convertido.';
+      }
+    }
+    
+    function decimalToText(decimalString) {
+      var decimalArray = decimalString.split(' ');
+      var text = '';
+      
+      for (var i = 0; i < decimalArray.length; i++) {
+        var decimal = parseInt(decimalArray[i]);
+        if (isNaN(decimal) || decimal < 0 || decimal > 255) {
+          return null;
+        }
+        var character = String.fromCharCode(decimal);
+        text += character;
+      }
+      
+      return text;
+    }
+  </script>
+</head>
+<body>
+  <h1>IP - Criptografia</h1>
+  
+  <input type="text" id="input" placeholder="Enter message" />
+  <br/>
+  <input type="button" id="action" value="Encriptar" onclick="encryptDecrypt()" />
+  <input type="button" value="Descriptar" onclick="convertDecimalToText()" />
+  <div id="result"></div>
+
+  <footer>
+    All copyrights reserved to Ivi-SCD |
+    <a href="https://github.com/Ivi-SCD" target="_blank">GitHub</a>
+  </footer>
+</body>
+</html>
